@@ -1,0 +1,57 @@
+PROCEDURE dot_product_proc (VAR V1 : ARRAY_OF INTEGER, VAR V2 : ARRAY_OF INTEGER, D : INTEGER)
+VAR
+    ps : INTEGER;
+    i : INTEGER;
+BEGIN
+    ps := 0;
+    FOR i FROM 0 TO D-1 STEP 1 DO
+        ps := ps + V1[i]*V2[i];
+    END_FOR
+    Write("the scalar product of V1 and V2 is: ");
+    Write(ps);
+END
+
+FUNCTION dot_product_func (VAR V1 : ARRAY_OF INTEGER, VAR V2 : ARRAY_OF INTEGER, D : INTEGER) : INTEGER
+VAR
+    ps : INTEGER;
+    i : INTEGER;
+BEGIN
+    ps := 0;
+    FOR i FROM 0 TO D-1 STEP 1 DO
+        ps := ps + V1[i]*V2[i];
+    END_FOR
+    RETURN ps;
+END
+
+ALGORITHM vectors
+VAR
+    V1, V2 : ARRAY_OF INTEGER[10];
+    D : INTEGER;
+    i : INTEGER;
+    dp : INTEGER;
+BEGIN
+    // reading the dimension of the vectors
+    Write("type the dimension of the vectors");
+    REPEAT
+        Write("D = ");
+        Read(D);
+    UNTIL (D>0 AND D<=10)
+    // reading the vectors
+    Write("V1 = ");
+    FOR i FROM 0 TO D-1 STEP 1 DO
+        Read(V1[i]);
+    END_FOR
+    Write("V2 = ");
+    FOR i FROM 0 TO D-1 STEP 1 DO
+        Read(V2[i]);
+    END_FOR
+    // calculating the dot product of the vectors using the procedure
+    dot_product_proc(V1,V2,D);
+    // calculating the dot product of the vectors using the function 
+    dp := dot_product_func(V1,V2,D);
+    Write("the scalar product of V1 and V2 is: ");
+    Write (dp);
+    IF (dp=0) THEN
+        Write("V1 and V2 are orthogonal vectors");
+    END_IF
+END
